@@ -82,7 +82,7 @@ namespace Pressure_regulator
 
             число = Convert.ToInt16(textBox1.Text);
             if (число >= 2009)
-                if (число >= 2015 && число <= 2022)
+                if (число >= 2013 && число <= 2022)
                 {
                     MessageBox.Show("Принята версия Инвентора " + textBox1.Text);
                 }
