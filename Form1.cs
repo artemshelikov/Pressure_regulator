@@ -16,7 +16,7 @@ namespace Pressure_regulator
 {
     public partial class Form1 : Form
     {
-        public string Версия_Inventor = "2019";
+        public string Версия_Inventor = "2022";
         /// <summary>
         /// ThisApplication - Объект для определения активного состояния Инвентора
         /// </summary>
