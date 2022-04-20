@@ -141,15 +141,17 @@ namespace Pressure_regulator
                 MessageBox.Show("Запустите Инвентор!");
                 return;
             }
-            /* Построение детали 1. Опора
+
+            //Построение детали 1. Опора
             // Объявление локальных переменных
             // Вставка программного кода по пространственному моделированию детали
-            Имя_нового_документа("1. Опора");
-            oPartDoc["1. Опора"].DisplayName = "1. Опора";
-            PlanarSketch oSketch = oCompDef["1. Опора"].Sketches.Add(oCompDef["1. Опора"].WorkPlanes[3]);
+            //Имя_нового_документа("1. Опора");
+            //oPartDoc["1. Опора"].DisplayName = "1. Опора";
+            //PlanarSketch oSketch = oCompDef["1. Опора"].Sketches.Add(oCompDef["1. Опора"].WorkPlanes[3]);
             SketchPoint[] point = new SketchPoint[12];
             SketchLine[] lines = new SketchLine[8];
             SketchArc[] arcs = new SketchArc[2];
+            /*
             // Определение координат точек для твердотельного основания
             point[0] = oSketch.SketchPoints.Add(oTransGeom["1. Опора"].CreatePoint2d(0, 0), false);
             point[1] = oSketch.SketchPoints.Add(oTransGeom["1. Опора"].CreatePoint2d(1.15, 0), false);
@@ -184,8 +186,38 @@ namespace Pressure_regulator
             RevolveFeature revolvefeature = oCompDef["1. Опора"].Features.
             RevolveFeatures.AddFull(oProfile, lines[7],
             PartFeatureOperationEnum.kJoinOperation);
-            MessageBox.Show("Создание детали завершено!", "Сообщение");
+            //MessageBox.Show("Создание детали завершено!", "Сообщение");
             */
+            //Построение детали 3. Винт
+            Имя_нового_документа("3. Винт");
+            oPartDoc["3. Винт"].DisplayName = "3. Винт";
+            PlanarSketch oSketch1 = oCompDef["3. Винт"].Sketches.Add(oCompDef["3. Винт"].WorkPlanes[3]);
+            _ = new SketchPoint[8];
+            _ = new SketchLine[5];
+            _ = new SketchArc[1];
+            point[0] = oSketch1.SketchPoints.Add(oTransGeom["3. Винт"].CreatePoint2d(0, 0), false);
+            point[1] = oSketch1.SketchPoints.Add(oTransGeom["3. Винт"].CreatePoint2d(0, 0.6), false);
+            point[2] = oSketch1.SketchPoints.Add(oTransGeom["3. Винт"].CreatePoint2d(0.6, 0.6), false);
+            point[3] = oSketch1.SketchPoints.Add(oTransGeom["3. Винт"].CreatePoint2d(0.8, 0.8), false);
+            point[4] = oSketch1.SketchPoints.Add(oTransGeom["3. Винт"].CreatePoint2d(0.8, 4.5), false);
+            point[5] = oSketch1.SketchPoints.Add(oTransGeom["3. Винт"].CreatePoint2d(0.8, 6.2), false);
+            point[6] = oSketch1.SketchPoints.Add(oTransGeom["3. Винт"].CreatePoint2d(0.7, 6.3), false);
+            point[7] = oSketch1.SketchPoints.Add(oTransGeom["3. Винт"].CreatePoint2d(0, 6.3), false);
+            lines[0] = oSketch1.SketchLines.AddByTwoPoints(point[2], point[3]);
+            lines[1] = oSketch1.SketchLines.AddByTwoPoints(point[3], point[4]);
+            lines[2] = oSketch1.SketchLines.AddByTwoPoints(point[4], point[5]);
+            lines[3] = oSketch1.SketchLines.AddByTwoPoints(point[5], point[6]);
+            lines[4] = oSketch1.SketchLines.AddByTwoPoints(point[6], point[7]);
+            lines[4] = oSketch1.SketchLines.AddByTwoPoints(point[7], point[0]);
+            arcs[0] = oSketch1.SketchArcs.AddByCenterStartEndPoint(oTransGeom["3. Винт"].CreatePoint2d(
+            point[1].Geometry.X, point[1].Geometry.Y), point[0], point[2]);
+            oTrans["3. Винт"].End();
+            Profile oProfile1 = (Profile)oSketch1.Profiles.AddForSolid();
+            // Вращение эскиза для получения твердотельной модели
+            RevolveFeature revolvefeature1 = oCompDef["3. Винт"].Features.
+            RevolveFeatures.AddFull(oProfile1, lines[4],
+            PartFeatureOperationEnum.kJoinOperation);
+            MessageBox.Show("Создание деталей завершено!", "Сообщение");
         }
     }
 }
