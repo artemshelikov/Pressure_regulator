@@ -57,7 +57,7 @@ namespace Pressure_regulator
                 ThisApplication = (Inventor.Application)System.Runtime.InteropServices.
                 Marshal.GetActiveObject("Inventor.Application");
                 if (ThisApplication != null) label2.Text = "Инвентор открыт!";
-                
+
             }
             catch
             {
@@ -105,6 +105,87 @@ namespace Pressure_regulator
                 Версия_Inventor = "2022";
                 textBox1.Text = Версия_Inventor;
             }
+        }
+        /// <summary>
+        /// Функция создания имен новых элементов (документ, определение, инструменты,транзакции, имена файлов), необходимых для работы с деталями
+        /// </summary>
+        /// <param name="Name">Имя для ассоциативного обращения к элементам словарей</param>
+        private void Имя_нового_документа(string Name)
+        {
+            // Новый документ детали
+            oPartDoc[Name] = (PartDocument)ThisApplication.Documents.Add(
+            DocumentTypeEnum.kPartDocumentObject, ThisApplication.FileManager.GetTemplateFile(DocumentTypeEnum.kPartDocumentObject));
+            // Новое определение
+            oCompDef[Name] = oPartDoc[Name].ComponentDefinition;
+            // Выбор инструментов
+            oTransGeom[Name] = ThisApplication.TransientGeometry;
+            // Создание транзакции
+            oTrans[Name] = ThisApplication.TransactionManager.StartTransaction(
+            ThisApplication.ActiveDocument, "Create Sample");
+            // Имя файла
+            oFileName[Name] = null;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //Проверка наличия активного состояния Инвентора.
+                ThisApplication = (Inventor.Application)System.Runtime.InteropServices.
+                Marshal.GetActiveObject("Inventor.Application");
+                if (ThisApplication != null) label2.Text = "Инвентор открыт!";
+            }
+            catch
+            {
+                // Если Инвентор не открыт, то возвращаемся в основную программу.
+                MessageBox.Show("Запустите Инвентор!");
+                return;
+            }
+            /* Построение детали 1. Опора
+            // Объявление локальных переменных
+            // Вставка программного кода по пространственному моделированию детали
+            Имя_нового_документа("1. Опора");
+            oPartDoc["1. Опора"].DisplayName = "1. Опора";
+            PlanarSketch oSketch = oCompDef["1. Опора"].Sketches.Add(oCompDef["1. Опора"].WorkPlanes[3]);
+            SketchPoint[] point = new SketchPoint[12];
+            SketchLine[] lines = new SketchLine[8];
+            SketchArc[] arcs = new SketchArc[2];
+            // Определение координат точек для твердотельного основания
+            point[0] = oSketch.SketchPoints.Add(oTransGeom["1. Опора"].CreatePoint2d(0, 0), false);
+            point[1] = oSketch.SketchPoints.Add(oTransGeom["1. Опора"].CreatePoint2d(1.15, 0), false);
+            point[2] = oSketch.SketchPoints.Add(oTransGeom["1. Опора"].CreatePoint2d(1.15, 0.1), false);
+            point[3] = oSketch.SketchPoints.Add(oTransGeom["1. Опора"].CreatePoint2d(1.15, 0.2), false);
+            point[4] = oSketch.SketchPoints.Add(oTransGeom["1. Опора"].CreatePoint2d(0.7, 0.2), false);
+            point[5] = oSketch.SketchPoints.Add(oTransGeom["1. Опора"].CreatePoint2d(0.7, 0.3), false);
+            point[6] = oSketch.SketchPoints.Add(oTransGeom["1. Опора"].CreatePoint2d(0.6, 0.3), false);
+            point[7] = oSketch.SketchPoints.Add(oTransGeom["1. Опора"].CreatePoint2d(0.6, 0.7), false);
+            point[8] = oSketch.SketchPoints.Add(oTransGeom["1. Опора"].CreatePoint2d(0.5, 0.8), false);
+            point[9] = oSketch.SketchPoints.Add(oTransGeom["1. Опора"].CreatePoint2d(0.3, 0.8), false);
+            point[10] = oSketch.SketchPoints.Add(oTransGeom["1. Опора"].CreatePoint2d(0.3, 0.45), false);
+            point[11] = oSketch.SketchPoints.Add(oTransGeom["1. Опора"].CreatePoint2d(0, 0.4), false);
+            // Построение замкнутого контура твердотельного основания
+            lines[0] = oSketch.SketchLines.AddByTwoPoints(point[0], point[1]);
+            lines[1] = oSketch.SketchLines.AddByTwoPoints(point[3], point[4]);
+            lines[2] = oSketch.SketchLines.AddByTwoPoints(point[6], point[7]);
+            lines[3] = oSketch.SketchLines.AddByTwoPoints(point[7], point[8]);
+            lines[4] = oSketch.SketchLines.AddByTwoPoints(point[8], point[9]);
+            lines[5] = oSketch.SketchLines.AddByTwoPoints(point[9], point[10]);
+            lines[6] = oSketch.SketchLines.AddByTwoPoints(point[10], point[11]);
+            lines[7] = oSketch.SketchLines.AddByTwoPoints(point[11], point[0]);
+            arcs[0] = oSketch.SketchArcs.AddByCenterStartEndPoint(oTransGeom["1. Опора"].CreatePoint2d(
+            point[2].Geometry.X, point[2].Geometry.Y), point[1], point[3]);
+            arcs[1] = oSketch.SketchArcs.AddByCenterStartEndPoint(oTransGeom["1. Опора"].CreatePoint2d(
+            point[5].Geometry.X, point[5].Geometry.Y), point[6], point[4]);
+            //Принять эскиз 
+            oTrans["1. Опора"].End();
+            // Выбор функции твердотельного построения
+            Profile oProfile = (Profile)oSketch.Profiles.AddForSolid();
+            // Вращение эскиза для получения твердотельной модели
+            RevolveFeature revolvefeature = oCompDef["1. Опора"].Features.
+            RevolveFeatures.AddFull(oProfile, lines[7],
+            PartFeatureOperationEnum.kJoinOperation);
+            MessageBox.Show("Создание детали завершено!", "Сообщение");
+            */
         }
     }
 }
