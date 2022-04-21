@@ -195,6 +195,7 @@ namespace Pressure_regulator
             _ = new SketchPoint[8];
             _ = new SketchLine[5];
             _ = new SketchArc[1];
+            SketchCircle[] Окружность = new SketchCircle[1];
             point[0] = oSketch1.SketchPoints.Add(oTransGeom["3. Винт"].CreatePoint2d(0, 0), false);
             point[1] = oSketch1.SketchPoints.Add(oTransGeom["3. Винт"].CreatePoint2d(0, 0.6), false);
             point[2] = oSketch1.SketchPoints.Add(oTransGeom["3. Винт"].CreatePoint2d(0.6, 0.6), false);
@@ -216,6 +217,57 @@ namespace Pressure_regulator
             // Вращение эскиза для получения твердотельной модели
             RevolveFeature revolvefeature1 = oCompDef["3. Винт"].Features.
             RevolveFeatures.AddFull(oProfile1, lines[4],
+            PartFeatureOperationEnum.kJoinOperation);
+            // Создание плоскости построения "oWorkPlane"
+            WorkPlane oWorkPlane = oCompDef["3. Винт"].WorkPlanes.AddByPlaneAndOffset(
+            oCompDef["3. Винт"].WorkPlanes[3], 8 + " мм", false);
+            oWorkPlane.Visible = false;
+            //Выбор рабочей плоскости oWorkPlane и создание эскиза на плоскости "oSketch1"
+            PlanarSketch oSketch2 = oCompDef["3. Винт"].Sketches.Add(oWorkPlane, false);
+            Transaction oTrans2 = ThisApplication.TransactionManager.StartTransaction(ThisApplication.ActiveDocument, "Create Sample2");
+            point[0] = oSketch2.SketchPoints.Add(oTransGeom["3. Винт"].CreatePoint2d(0, 5.5), false);
+            Окружность[0] = oSketch2.SketchCircles.AddByCenterRadius(point[0], 0.4);
+            oTrans2.End();
+            Profile oProfile2 = (Profile)oSketch2.Profiles.AddForSolid();
+            ExtrudeFeature oExtrudeDef = oCompDef["3. Винт"].Features.ExtrudeFeatures.AddByDistanceExtent(
+            /*Эскиз*/oProfile2,/*Длина в см*/1.6,/*Направление вдоль оси*/
+            PartFeatureExtentDirectionEnum.kNegativeExtentDirection,
+            /*Операция*/PartFeatureOperationEnum.kCutOperation,/*Эскиз*/oProfile2);
+            //Резьба
+            
+            EdgeCollection EdgeCollection = ThisApplication.TransientObjects.CreateEdgeCollection();
+            Face Face = revolvefeature1.SideFaces[3];
+            Edge StartEdge_1 = Face.Edges[6];
+            EdgeCollection.Add(StartEdge_1);
+            ThreadFeatures ThreadFeatures = oCompDef["3. Винт"].Features.ThreadFeatures;
+            StandardThreadInfo stInfo = ThreadFeatures.CreateStandardThreadInfo(false, true,
+            "ISO Metric profile", "M16x1.25", "6g");
+            ThreadInfo ThreadInfo = (ThreadInfo)stInfo;
+            ThreadFeatures.Add(Face, StartEdge_1, ThreadInfo, false, false, 37 + " мм", 0);
+
+            //Построение детали 4. Штифт
+            Имя_нового_документа("4. Штифт");
+            oPartDoc["4. Штифт"].DisplayName = "3. Винт";
+            PlanarSketch oSketch3 = oCompDef["4. Штифт"].Sketches.Add(oCompDef["4. Штифт"].WorkPlanes[3]);
+            _ = new SketchPoint[6];
+            _ = new SketchLine[2];
+            _ = new SketchArc[2];
+            point[0] = oSketch3.SketchPoints.Add(oTransGeom["4. Штифт"].CreatePoint2d(0, 0), false);
+            point[1] = oSketch3.SketchPoints.Add(oTransGeom["4. Штифт"].CreatePoint2d(0, 0.4), false);
+            point[2] = oSketch3.SketchPoints.Add(oTransGeom["4. Штифт"].CreatePoint2d(0.4, 0.4), false);
+            point[3] = oSketch3.SketchPoints.Add(oTransGeom["4. Штифт"].CreatePoint2d(0.4, 7.1), false);
+            point[4] = oSketch3.SketchPoints.Add(oTransGeom["4. Штифт"].CreatePoint2d(0, 7.1), false);
+            point[5] = oSketch3.SketchPoints.Add(oTransGeom["4. Штифт"].CreatePoint2d(0, 7.5), false);
+            lines[0] = oSketch3.SketchLines.AddByTwoPoints(point[2], point[3]);
+            lines[1] = oSketch3.SketchLines.AddByTwoPoints(point[5], point[0]);
+            arcs[0] = oSketch3.SketchArcs.AddByCenterStartEndPoint(oTransGeom["4. Штифт"].CreatePoint2d(
+            point[1].Geometry.X, point[1].Geometry.Y), point[0], point[2]);
+            arcs[1] = oSketch3.SketchArcs.AddByCenterStartEndPoint(oTransGeom["4. Штифт"].CreatePoint2d(
+            point[4].Geometry.X, point[4].Geometry.Y), point[3], point[5]);
+            oTrans["4. Штифт"].End();
+            Profile oProfile3 = (Profile)oSketch3.Profiles.AddForSolid();
+            RevolveFeature revolvefeature2 = oCompDef["4. Штифт"].Features.
+            RevolveFeatures.AddFull(oProfile3, lines[1],
             PartFeatureOperationEnum.kJoinOperation);
             MessageBox.Show("Создание деталей завершено!", "Сообщение");
         }
