@@ -149,7 +149,7 @@ namespace Pressure_regulator
             //oPartDoc["1. Опора"].DisplayName = "1. Опора";
             //PlanarSketch oSketch = oCompDef["1. Опора"].Sketches.Add(oCompDef["1. Опора"].WorkPlanes[3]);
             SketchPoint[] point = new SketchPoint[12];
-            SketchLine[] lines = new SketchLine[9];
+            SketchLine[] lines = new SketchLine[10];
             SketchArc[] arcs = new SketchArc[2];
             SketchCircle[] Окружность = new SketchCircle[1];
             /*
@@ -271,56 +271,96 @@ namespace Pressure_regulator
             */
 
             //Построение детали 5. Упор
-            Имя_нового_документа("5. Упор");
-            oPartDoc["5. Упор"].DisplayName = "5. Упор";
-            PlanarSketch oSketch4 = oCompDef["5. Упор"].Sketches.Add(oCompDef["5. Упор"].WorkPlanes[3]);
-            point[0] = oSketch4.SketchPoints.Add(oTransGeom["5. Упор"].CreatePoint2d(0.7, 0), false);
-            point[1] = oSketch4.SketchPoints.Add(oTransGeom["5. Упор"].CreatePoint2d(2, 0), false);
-            point[2] = oSketch4.SketchPoints.Add(oTransGeom["5. Упор"].CreatePoint2d(2, 0.4), false);
-            point[3] = oSketch4.SketchPoints.Add(oTransGeom["5. Упор"].CreatePoint2d(1.25, 0.4), false);
-            point[4] = oSketch4.SketchPoints.Add(oTransGeom["5. Упор"].CreatePoint2d(1.25, 1.2), false);
-            point[5] = oSketch4.SketchPoints.Add(oTransGeom["5. Упор"].CreatePoint2d(1.05, 1.2), false);
-            point[6] = oSketch4.SketchPoints.Add(oTransGeom["5. Упор"].CreatePoint2d(1.05, 0.7), false);
-            point[7] = oSketch4.SketchPoints.Add(oTransGeom["5. Упор"].CreatePoint2d(0, 0.7), false);
-            point[8] = oSketch4.SketchPoints.Add(oTransGeom["5. Упор"].CreatePoint2d(0, 0.4), false);
-            lines[0] = oSketch4.SketchLines.AddByTwoPoints(point[0], point[1]);
-            lines[1] = oSketch4.SketchLines.AddByTwoPoints(point[1], point[2]);
-            lines[2] = oSketch4.SketchLines.AddByTwoPoints(point[2], point[3]);
-            lines[3] = oSketch4.SketchLines.AddByTwoPoints(point[3], point[4]);
-            lines[4] = oSketch4.SketchLines.AddByTwoPoints(point[4], point[5]);
-            lines[5] = oSketch4.SketchLines.AddByTwoPoints(point[5], point[6]);
-            lines[6] = oSketch4.SketchLines.AddByTwoPoints(point[6], point[7]);
-            lines[7] = oSketch4.SketchLines.AddByTwoPoints(point[7], point[8]);
-            lines[8] = oSketch4.SketchLines.AddByTwoPoints(point[8], point[0]);
+            //Имя_нового_документа("5. Упор");
+            //oPartDoc["5. Упор"].DisplayName = "5. Упор";
+            //PlanarSketch oSketch4 = oCompDef["5. Упор"].Sketches.Add(oCompDef["5. Упор"].WorkPlanes[3]);
+            //point[0] = oSketch4.SketchPoints.Add(oTransGeom["5. Упор"].CreatePoint2d(0.7, 0), false);
+            //point[1] = oSketch4.SketchPoints.Add(oTransGeom["5. Упор"].CreatePoint2d(2, 0), false);
+            //point[2] = oSketch4.SketchPoints.Add(oTransGeom["5. Упор"].CreatePoint2d(2, 0.4), false);
+            //point[3] = oSketch4.SketchPoints.Add(oTransGeom["5. Упор"].CreatePoint2d(1.25, 0.4), false);
+            //point[4] = oSketch4.SketchPoints.Add(oTransGeom["5. Упор"].CreatePoint2d(1.25, 1.2), false);
+            //point[5] = oSketch4.SketchPoints.Add(oTransGeom["5. Упор"].CreatePoint2d(1.05, 1.2), false);
+            //point[6] = oSketch4.SketchPoints.Add(oTransGeom["5. Упор"].CreatePoint2d(1.05, 0.7), false);
+            //point[7] = oSketch4.SketchPoints.Add(oTransGeom["5. Упор"].CreatePoint2d(0, 0.7), false);
+            //point[8] = oSketch4.SketchPoints.Add(oTransGeom["5. Упор"].CreatePoint2d(0, 0.4), false);
+            //lines[0] = oSketch4.SketchLines.AddByTwoPoints(point[0], point[1]);
+            //lines[1] = oSketch4.SketchLines.AddByTwoPoints(point[1], point[2]);
+            //lines[2] = oSketch4.SketchLines.AddByTwoPoints(point[2], point[3]);
+            //lines[3] = oSketch4.SketchLines.AddByTwoPoints(point[3], point[4]);
+            //lines[4] = oSketch4.SketchLines.AddByTwoPoints(point[4], point[5]);
+            //lines[5] = oSketch4.SketchLines.AddByTwoPoints(point[5], point[6]);
+            //lines[6] = oSketch4.SketchLines.AddByTwoPoints(point[6], point[7]);
+            //lines[7] = oSketch4.SketchLines.AddByTwoPoints(point[7], point[8]);
+            //lines[8] = oSketch4.SketchLines.AddByTwoPoints(point[8], point[0]);
 
-            oTrans["5. Упор"].End();
+            //oTrans["5. Упор"].End();
             
-            Profile oProfile4 = (Profile)oSketch4.Profiles.AddForSolid();
-            RevolveFeature revolvefeature3 = oCompDef["5. Упор"].Features.
-            RevolveFeatures.AddFull(oProfile4, lines[7],
+            //Profile oProfile4 = (Profile)oSketch4.Profiles.AddForSolid();
+            //RevolveFeature revolvefeature3 = oCompDef["5. Упор"].Features.
+            //RevolveFeatures.AddFull(oProfile4, lines[7],
+            //PartFeatureOperationEnum.kJoinOperation);
+            ////фаски
+            //EdgeCollection EdgeCollection1 = ThisApplication.TransientObjects.CreateEdgeCollection();
+            //Face Face1 = revolvefeature3.SideFaces[3];
+            //Edge StartEdge_2 = Face1.Edges[1];
+            //EdgeCollection1.Add(StartEdge_2);
+            //oCompDef["5. Упор"].Features.ChamferFeatures.AddUsingDistance(EdgeCollection1,  1 + "мм",true);
+
+            ////вторая фаска(меньше строк)
+            //EdgeCollection1.Add(revolvefeature3.Faces[3].Edges[2]);
+            //oCompDef["5. Упор"].Features.ChamferFeatures.AddUsingDistance(EdgeCollection1, 1 + "мм", true);
+
+            //FilletFeature oFillet = default(FilletFeature);
+
+            ////скругления
+            //EdgeCollection1.Add(revolvefeature3.Faces[6].Edges[1]);
+            //FilletDefinition oFilletDef = oCompDef["5. Упор"].Features.FilletFeatures.CreateFilletDefinition();
+            //oFilletDef.AddConstantRadiusEdgeSet(EdgeCollection1, 0.5 + "мм");
+            //oFillet = oCompDef["5. Упор"].Features.FilletFeatures.Add(oFilletDef, false);
+
+            //EdgeCollection1.Add(revolvefeature3.Faces[5].Edges[1]);
+            //FilletDefinition oFilletDef1 = oCompDef["5. Упор"].Features.FilletFeatures.CreateFilletDefinition();
+            //oFilletDef1.AddConstantRadiusEdgeSet(EdgeCollection1, 1 + "мм");
+            //oFillet = oCompDef["5. Упор"].Features.FilletFeatures.Add(oFilletDef1, false);
+
+            Имя_нового_документа("10. Тарелка");
+            oPartDoc["10. Тарелка"].DisplayName = "10. Тарелка";
+            PlanarSketch oSketch5 = oCompDef["10. Тарелка"].Sketches.Add(oCompDef["10. Тарелка"].WorkPlanes[3]);
+            point[0] = oSketch5.SketchPoints.Add(oTransGeom["10. Тарелка"].CreatePoint2d(0, 0), false);
+            point[1] = oSketch5.SketchPoints.Add(oTransGeom["10. Тарелка"].CreatePoint2d(2.8, 0), false);
+            point[2] = oSketch5.SketchPoints.Add(oTransGeom["10. Тарелка"].CreatePoint2d(2.8, 0.8), false);
+            point[3] = oSketch5.SketchPoints.Add(oTransGeom["10. Тарелка"].CreatePoint2d(2.5, 0.8), false);
+            point[4] = oSketch5.SketchPoints.Add(oTransGeom["10. Тарелка"].CreatePoint2d(2.5, 0.3), false);
+            point[5] = oSketch5.SketchPoints.Add(oTransGeom["10. Тарелка"].CreatePoint2d(1.25, 0.3), false);
+            point[6] = oSketch5.SketchPoints.Add(oTransGeom["10. Тарелка"].CreatePoint2d(1.25, 0.8), false);
+            point[7] = oSketch5.SketchPoints.Add(oTransGeom["10. Тарелка"].CreatePoint2d(1.05, 0.8), false);
+            point[8] = oSketch5.SketchPoints.Add(oTransGeom["10. Тарелка"].CreatePoint2d(1.05, 0.3), false);
+            point[9] = oSketch5.SketchPoints.Add(oTransGeom["10. Тарелка"].CreatePoint2d(0, 0.3), false);
+            lines[0] = oSketch5.SketchLines.AddByTwoPoints(point[0], point[1]);
+            lines[1] = oSketch5.SketchLines.AddByTwoPoints(point[1], point[2]);
+            lines[2] = oSketch5.SketchLines.AddByTwoPoints(point[2], point[3]);
+            lines[3] = oSketch5.SketchLines.AddByTwoPoints(point[3], point[4]);
+            lines[4] = oSketch5.SketchLines.AddByTwoPoints(point[4], point[5]);
+            lines[5] = oSketch5.SketchLines.AddByTwoPoints(point[5], point[6]);
+            lines[6] = oSketch5.SketchLines.AddByTwoPoints(point[6], point[7]);
+            lines[7] = oSketch5.SketchLines.AddByTwoPoints(point[7], point[8]);
+            lines[8] = oSketch5.SketchLines.AddByTwoPoints(point[8], point[9]);
+            lines[9] = oSketch5.SketchLines.AddByTwoPoints(point[9], point[0]);
+
+            oTrans["10. Тарелка"].End();
+
+            Profile oProfile5 = (Profile)oSketch5.Profiles.AddForSolid();
+            RevolveFeature revolvefeature4 = oCompDef["10. Тарелка"].Features.
+            RevolveFeatures.AddFull(oProfile5, lines[9],
             PartFeatureOperationEnum.kJoinOperation);
+
             //фаски
-            EdgeCollection EdgeCollection1 = ThisApplication.TransientObjects.CreateEdgeCollection();
-            Face Face1 = revolvefeature3.SideFaces[3];
-            Edge StartEdge_2 = Face1.Edges[1];
-            EdgeCollection1.Add(StartEdge_2);
-            oCompDef["5. Упор"].Features.ChamferFeatures.AddUsingDistance(EdgeCollection1,  1 + "мм",true);
-
-            //вторая фаска(меньше строк)
-            EdgeCollection1.Add(revolvefeature3.Faces[3].Edges[2]);
-            oCompDef["5. Упор"].Features.ChamferFeatures.AddUsingDistance(EdgeCollection1, 1 + "мм", true);
-            FilletFeature oFillet = default(FilletFeature);
-
-            //скругления
-            EdgeCollection1.Add(revolvefeature3.Faces[6].Edges[1]);
-            FilletDefinition oFilletDef = oCompDef["5. Упор"].Features.FilletFeatures.CreateFilletDefinition();
-            oFilletDef.AddConstantRadiusEdgeSet(EdgeCollection1, 0.5 + "мм");
-            oFillet = oCompDef["5. Упор"].Features.FilletFeatures.Add(oFilletDef, false);
-
-            EdgeCollection1.Add(revolvefeature3.Faces[5].Edges[1]);
-            FilletDefinition oFilletDef1 = oCompDef["5. Упор"].Features.FilletFeatures.CreateFilletDefinition();
-            oFilletDef1.AddConstantRadiusEdgeSet(EdgeCollection1, 1 + "мм");
-            oFillet = oCompDef["5. Упор"].Features.FilletFeatures.Add(oFilletDef1, false);
+            EdgeCollection EdgeCollection2 = ThisApplication.TransientObjects.CreateEdgeCollection();
+            EdgeCollection2.Add(revolvefeature4.Faces[1].Edges[1]);
+            EdgeCollection2.Add(revolvefeature4.Faces[2].Edges[1]);
+            EdgeCollection2.Add(revolvefeature4.Faces[5].Edges[1]);
+            EdgeCollection2.Add(revolvefeature4.Faces[7].Edges[2]);
+            oCompDef["10. Тарелка"].Features.ChamferFeatures.AddUsingDistance(EdgeCollection2, 0.5 + "мм", true);
 
             MessageBox.Show("Создание деталей завершено!", "Сообщение");
         }
