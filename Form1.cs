@@ -301,13 +301,13 @@ namespace Pressure_regulator
             PartFeatureOperationEnum.kJoinOperation);
             //фаски
             EdgeCollection EdgeCollection1 = ThisApplication.TransientObjects.CreateEdgeCollection();
-            Face Face1 = revolvefeature3.SideFaces[4];
+            Face Face1 = revolvefeature3.SideFaces[3];
             Edge StartEdge_2 = Face1.Edges[1];
             EdgeCollection1.Add(StartEdge_2);
             oCompDef["5. Упор"].Features.ChamferFeatures.AddUsingDistance(EdgeCollection1,  1 + "мм",true);
 
             //вторая фаска(меньше строк)
-            EdgeCollection1.Add(revolvefeature3.Faces[7].Edges[1]);
+            EdgeCollection1.Add(revolvefeature3.Faces[3].Edges[2]);
             oCompDef["5. Упор"].Features.ChamferFeatures.AddUsingDistance(EdgeCollection1, 1 + "мм", true);
             FilletFeature oFillet = default(FilletFeature);
 
@@ -317,7 +317,7 @@ namespace Pressure_regulator
             oFilletDef.AddConstantRadiusEdgeSet(EdgeCollection1, 0.5 + "мм");
             oFillet = oCompDef["5. Упор"].Features.FilletFeatures.Add(oFilletDef, false);
 
-            EdgeCollection1.Add(revolvefeature3.Faces[8].Edges[2]);
+            EdgeCollection1.Add(revolvefeature3.Faces[5].Edges[1]);
             FilletDefinition oFilletDef1 = oCompDef["5. Упор"].Features.FilletFeatures.CreateFilletDefinition();
             oFilletDef1.AddConstantRadiusEdgeSet(EdgeCollection1, 1 + "мм");
             oFillet = oCompDef["5. Упор"].Features.FilletFeatures.Add(oFilletDef1, false);
