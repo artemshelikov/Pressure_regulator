@@ -760,7 +760,7 @@ namespace Pressure_regulator
             //PartFeatureOperationEnum.kJoinOperation);
 
             //EdgeCollection EdgeCollection12 = ThisApplication.TransientObjects.CreateEdgeCollection();
-            //Face Face3 = revolvefeature14.SideFaces[3];
+            //Face Face3 = revolvefeature15.SideFaces[3];
             //Edge StartEdge_4 = Face3.Edges[1];
             //EdgeCollection12.Add(StartEdge_4);
             //ThreadFeatures ThreadFeatures2 = oCompDef["22. Угольник"].Features.ThreadFeatures;
@@ -769,6 +769,44 @@ namespace Pressure_regulator
             //ThreadInfo ThreadInfo2 = (ThreadInfo)stInfo2;
             //ThreadFeatures2.Add(Face2, StartEdge_3, ThreadInfo2, false, true);
 
+            //Построение детали 23. Клапан
+            Имя_нового_документа("23. Клапан");
+            oPartDoc["23. Клапан"].DisplayName = "23. Клапан";
+            PlanarSketch oSketch20 = oCompDef["23. Клапан"].Sketches.Add(oCompDef["23. Клапан"].WorkPlanes[3]);
+
+            point[0] = oSketch20.SketchPoints.Add(oTransGeom["23. Клапан"].CreatePoint2d(0.075, 0), false);
+            point[1] = oSketch20.SketchPoints.Add(oTransGeom["23. Клапан"].CreatePoint2d(0.515, 0), false);
+            point[2] = oSketch20.SketchPoints.Add(oTransGeom["23. Клапан"].CreatePoint2d(0.425, 0.9), false);
+            point[3] = oSketch20.SketchPoints.Add(oTransGeom["23. Клапан"].CreatePoint2d(0, 0.9), false);
+            point[4] = oSketch20.SketchPoints.Add(oTransGeom["23. Клапан"].CreatePoint2d(0, 0.3), false);
+            point[5] = oSketch20.SketchPoints.Add(oTransGeom["23. Клапан"].CreatePoint2d(0.075, 0.3), false);
+            lines[0] = oSketch20.SketchLines.AddByTwoPoints(point[0], point[1]);
+            lines[1] = oSketch20.SketchLines.AddByTwoPoints(point[1], point[2]);
+            lines[2] = oSketch20.SketchLines.AddByTwoPoints(point[2], point[3]);
+            lines[3] = oSketch20.SketchLines.AddByTwoPoints(point[3], point[4]);
+            lines[4] = oSketch20.SketchLines.AddByTwoPoints(point[4], point[5]);
+            lines[5] = oSketch20.SketchLines.AddByTwoPoints(point[5], point[0]);
+            oTrans["23. Клапан"].End();
+            Profile oProfile20 = (Profile)oSketch20.Profiles.AddForSolid();
+            RevolveFeature revolvefeature16 = oCompDef["23. Клапан"].Features.
+            RevolveFeatures.AddFull(oProfile20, lines[3],
+            PartFeatureOperationEnum.kJoinOperation);
+            
+            EdgeCollection EdgeCollection13 = ThisApplication.TransientObjects.CreateEdgeCollection();
+            EdgeCollection13.Add(revolvefeature16.Faces[4].Edges[2]);
+            EdgeCollection13.Add(revolvefeature16.Faces[4].Edges[1]);
+            oCompDef["23. Клапан"].Features.ChamferFeatures.AddUsingDistance(EdgeCollection13, 1 + "мм", true);
+
+            EdgeCollection EdgeCollection14 = ThisApplication.TransientObjects.CreateEdgeCollection();
+            Face Face4 = revolvefeature16.SideFaces[1];
+            Edge StartEdge_5 = Face4.Edges[1];
+            EdgeCollection14.Add(StartEdge_5);
+            ThreadFeatures ThreadFeatures3 = oCompDef["23. Клапан"].Features.ThreadFeatures;
+            TaperedThreadInfo stInfo3 = ThreadFeatures3.CreateTaperedThreadInfo(false, true, 
+            "ISO Taper External", "R1/8");
+            ThreadInfo ThreadInfo3 = (ThreadInfo)stInfo3;
+            ThreadFeatures3.Add(Face4, StartEdge_5, ThreadInfo3, false, true);
+            
             MessageBox.Show("Создание деталей завершено!", "Сообщение");
 
 
