@@ -222,7 +222,7 @@ namespace Pressure_regulator
             //oWorkPlane.Visible = false;
             ////Выбор рабочей плоскости oWorkPlane и создание эскиза на плоскости "oSketch1"
             //PlanarSketch oSketch2 = oCompDef["3. Винт"].Sketches.Add(oWorkPlane, false);
-            Transaction oTrans2 = ThisApplication.TransactionManager.StartTransaction(ThisApplication.ActiveDocument, "Create Sample2");
+            //Transaction oTrans2 = ThisApplication.TransactionManager.StartTransaction(ThisApplication.ActiveDocument, "Create Sample2");
             //point[0] = oSketch2.SketchPoints.Add(oTransGeom["3. Винт"].CreatePoint2d(0, 5.5), false);
             //Окружность[0] = oSketch2.SketchCircles.AddByCenterRadius(point[0], 0.4);
             //oTrans2.End();
@@ -793,19 +793,29 @@ namespace Pressure_regulator
             PartFeatureOperationEnum.kJoinOperation);
             
             EdgeCollection EdgeCollection13 = ThisApplication.TransientObjects.CreateEdgeCollection();
-            EdgeCollection13.Add(revolvefeature16.Faces[4].Edges[2]);
-            EdgeCollection13.Add(revolvefeature16.Faces[4].Edges[1]);
+            EdgeCollection13.Add(revolvefeature16.Faces[1].Edges[2]);
+            EdgeCollection13.Add(revolvefeature16.Faces[1].Edges[1]);
             oCompDef["23. Клапан"].Features.ChamferFeatures.AddUsingDistance(EdgeCollection13, 1 + "мм", true);
 
             EdgeCollection EdgeCollection14 = ThisApplication.TransientObjects.CreateEdgeCollection();
             Face Face4 = revolvefeature16.SideFaces[1];
             Edge StartEdge_5 = Face4.Edges[1];
-            EdgeCollection14.Add(StartEdge_5);
-            ThreadFeatures ThreadFeatures3 = oCompDef["23. Клапан"].Features.ThreadFeatures;
-            TaperedThreadInfo stInfo3 = ThreadFeatures3.CreateTaperedThreadInfo(false, true, 
-            "ISO Taper External", "R1/8");
-            ThreadInfo ThreadInfo3 = (ThreadInfo)stInfo3;
-            ThreadFeatures3.Add(Face4, StartEdge_5, ThreadInfo3, false, true);
+            EdgeCollection14.Add(StartEdge_5);// SketchPoint[] point = new SketchPoint[20];
+            //ThreadFeatures ThreadFeatures3 = oCompDef["23. Клапан"].Features.ThreadFeatures;
+            ThreadTableQuery ThreadFeatures3 = oCompDef["23. Клапан"].Features.Application.GeneralOptions.ThreadTableQuery;
+            //GeneralOptions oGeneralOptions = ThisApplication.GeneralOptions;
+            ////GeneralOptions oGeneralOptions = oCompDef["23. Клапан"].GeneralOptions;
+            //ThreadTableQuery oThreadTable = oGeneralOptions.ThreadTableQuery;
+            //String  oTypes;
+            ////oTypes = oThreadTable.GetAvailableThreadTypes;
+            ////oTypes[0] = oCompDef["23. Клапан"].GetAvailableThreadTypes();
+            //String oSize;
+            //oSize = oThreadTable.GetAvailableThreadSizes(false, "NPT");
+            //String oDestignation = (String)oThreadTable.GetAvailableDesignations(false, "NPT", oSize);
+            //oDestignation = 
+            TaperedThreadInfo stInfo3 = (TaperedThreadInfo)ThreadFeatures3.CreateThreadInfo(false, true, "NPT", "R1/8");
+            TaperedThreadInfo ThreadInfo3 = stInfo3;
+            ThreadFeatures3.CreateThreadInfo.ThreadInfo3(Face4, StartEdge_5, ThreadInfo3, false, true);
             
             MessageBox.Show("Создание деталей завершено!", "Сообщение");
 
