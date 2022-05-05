@@ -53,7 +53,7 @@ namespace Pressure_regulator
 
             //Инициализация списков элементов
             comboBox1.Text = Convert.ToString(RGasPr);
-            this.comboBox1.Items.AddRange(new object[] { "10,0", "12,0", "15,0", "18,0", "20,0" });
+            this.comboBox1.Items.AddRange(new object[] { "10,0", "9.0", "11.0", "12.0" });
             comboBox2.Text = Convert.ToString(RKlap);
             this.comboBox2.Items.AddRange(new object[] { "24,0", "25,0", "26,0", "27,5", "28,0" });
             comboBox3.Text = Convert.ToString(RKolco);
@@ -70,7 +70,10 @@ namespace Pressure_regulator
             this.comboBox8.Items.AddRange(new object[] { "5,0", "5,5", "6,0", "6,5", "7,0", "7,5" });
             comboBox9.Text = Convert.ToString(HFlanca);
             this.comboBox9.Items.AddRange(new object[] { "12,0", "15,0", "18,0", "20,0"});
-
+            comboBox10.Text = Convert.ToString(ROtvTr);
+            this.comboBox10.Items.AddRange(new object[] { "16.615", "13.285", "10.612" });
+            comboBox11.Text = Convert.ToString(DOtvBolt);
+            this.comboBox11.Items.AddRange(new object[] { "8.0", "9.0", "10.0", "11.0", "12.0","14.0" });
 
             textBox1.Text = Версия_Inventor;
             try
@@ -150,7 +153,7 @@ namespace Pressure_regulator
         }
 
         private static double RGasPr = 10, ROsn = 31.5, RKlap = 24, RVtullka = 7.5, RVtullkaSmall = 5, RKolco = 40,
-            ShirFlanca = 11.5, HFlanca = 12, HKorp = 75;
+            ShirFlanca = 11.5, HFlanca = 12, HKorp = 75, ROtvTr = 16.615, DOtvBolt = 8;
 
         private void comboBox8_TextChanged(object sender, EventArgs e)
         {
@@ -160,6 +163,16 @@ namespace Pressure_regulator
         private void comboBox9_TextChanged(object sender, EventArgs e)
         {
             HFlanca = Convert.ToDouble(comboBox9.Text);
+        }
+
+        private void comboBox11_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox10_TextChanged(object sender, EventArgs e)
+        {
+            ROtvTr = Convert.ToDouble(comboBox10.Text);
         }
 
         private void comboBox7_TextChanged(object sender, EventArgs e)
@@ -223,6 +236,8 @@ namespace Pressure_regulator
             ShirFlanca = ShirFlanca / 10;
             HFlanca = HFlanca / 10;
             HKorp = HKorp / 10;
+            ROtvTr = ROtvTr / 10;
+            DOtvBolt = DOtvBolt / 2 / 10;
 
         //Построение детали 1. Опора
         // Объявление локальных переменных
@@ -383,11 +398,164 @@ namespace Pressure_regulator
             point[4].Geometry.X, point[4].Geometry.Y), point[6], point[5]);
             arcs[1] = oSketch23.SketchArcs.AddByCenterStartEndPoint(oTransGeom["13. Корпус"].CreatePoint2d(
             point[4].Geometry.X, point[4].Geometry.Y), point[7], point[8]);
+            oTrans3.End();
             Profile oProfile23 = (Profile)oSketch23.Profiles.AddForSolid();
             ExtrudeFeature oExtrudeDef5 = oCompDef["13. Корпус"].Features.ExtrudeFeatures.AddByDistanceExtent(
             /*Эскиз*/oProfile23,/*Длина в см*/4.3,/*Направление вдоль оси*/
             PartFeatureExtentDirectionEnum.kNegativeExtentDirection,
             /*Операция*/PartFeatureOperationEnum.kJoinOperation,/*Эскиз*/oProfile23);
+
+            EdgeCollection EdgeCollection15 = ThisApplication.TransientObjects.CreateEdgeCollection();
+            FilletFeature oFillet3 = default(FilletFeature);
+            EdgeCollection15.Add(oExtrudeDef5.Faces[1].Edges[6]);
+            EdgeCollection15.Add(oExtrudeDef5.Faces[6].Edges[4]);
+            EdgeCollection15.Add(oExtrudeDef5.Faces[7].Edges[2]);
+            EdgeCollection15.Add(oExtrudeDef5.Faces[7].Edges[4]);
+            FilletDefinition oFilletDef4 = oCompDef["13. Корпус"].Features.FilletFeatures.CreateFilletDefinition();
+            oFilletDef4.AddConstantRadiusEdgeSet(EdgeCollection15, 24 + "мм");
+            oFillet3 = oCompDef["13. Корпус"].Features.FilletFeatures.Add(oFilletDef4, false);
+
+            PlanarSketch oSketch24 = oCompDef["13. Корпус"].Sketches.Add(oCompDef["13. Корпус"].WorkPlanes[3]);
+            Transaction oTrans4 = ThisApplication.TransactionManager.StartTransaction(ThisApplication.ActiveDocument, "Create Sample4");
+            point[0] = oSketch24.SketchPoints.Add(oTransGeom["13. Корпус"].CreatePoint2d(-ROsn*1.67, 4), false);
+            point[1] = oSketch24.SketchPoints.Add(oTransGeom["13. Корпус"].CreatePoint2d(-ROsn * 1.67, ROtvTr+4), false);
+            point[2] = oSketch24.SketchPoints.Add(oTransGeom["13. Корпус"].CreatePoint2d(-1.5, ROtvTr*0.87+4), false);
+            point[3] = oSketch24.SketchPoints.Add(oTransGeom["13. Корпус"].CreatePoint2d(-1.5, 4), false);
+            lines[0] = oSketch24.SketchLines.AddByTwoPoints(point[0], point[1]);
+            lines[1] = oSketch24.SketchLines.AddByTwoPoints(point[1], point[2]);
+            lines[2] = oSketch24.SketchLines.AddByTwoPoints(point[2], point[3]);
+            lines[3] = oSketch24.SketchLines.AddByTwoPoints(point[3], point[0]);
+            oTrans4.End();
+            Profile oProfile24 = (Profile)oSketch24.Profiles.AddForSolid();
+            RevolveFeature revolvefeature19 = oCompDef["13. Корпус"].Features.
+                RevolveFeatures.AddFull(oProfile24, lines[3],
+                PartFeatureOperationEnum.kCutOperation);
+
+            PlanarSketch oSketch25 = oCompDef["13. Корпус"].Sketches.Add(oCompDef["13. Корпус"].WorkPlanes[3]);
+            Transaction oTrans5 = ThisApplication.TransactionManager.StartTransaction(ThisApplication.ActiveDocument, "Create Sample5");
+            point[0] = oSketch25.SketchPoints.Add(oTransGeom["13. Корпус"].CreatePoint2d(ROsn * 1.67, 4), false);
+            point[1] = oSketch25.SketchPoints.Add(oTransGeom["13. Корпус"].CreatePoint2d(ROsn * 1.67, ROtvTr + 4), false);
+            point[2] = oSketch25.SketchPoints.Add(oTransGeom["13. Корпус"].CreatePoint2d(ROsn * 1.67-3.2, ROtvTr * 0.87 + 4), false);
+            point[3] = oSketch25.SketchPoints.Add(oTransGeom["13. Корпус"].CreatePoint2d(1.5, ROtvTr*0.54+4), false);
+            point[4] = oSketch25.SketchPoints.Add(oTransGeom["13. Корпус"].CreatePoint2d(0, ROtvTr*0.54+4), false);
+            point[5] = oSketch25.SketchPoints.Add(oTransGeom["13. Корпус"].CreatePoint2d(0, 4), false);
+            lines[0] = oSketch25.SketchLines.AddByTwoPoints(point[0], point[1]);
+            lines[1] = oSketch25.SketchLines.AddByTwoPoints(point[1], point[2]);
+            lines[2] = oSketch25.SketchLines.AddByTwoPoints(point[2], point[3]);
+            lines[3] = oSketch25.SketchLines.AddByTwoPoints(point[3], point[4]);
+            lines[4] = oSketch25.SketchLines.AddByTwoPoints(point[4], point[5]);
+            lines[5] = oSketch25.SketchLines.AddByTwoPoints(point[5], point[0]);
+            oTrans5.End();
+            Profile oProfile25 = (Profile)oSketch25.Profiles.AddForSolid();
+            RevolveFeature revolvefeature20 = oCompDef["13. Корпус"].Features.
+                RevolveFeatures.AddFull(oProfile25, lines[5],
+                PartFeatureOperationEnum.kCutOperation);
+
+            WorkPlane oWorkPlane4 = oCompDef["13. Корпус"].WorkPlanes.AddByPlaneAndOffset(
+            oCompDef["13. Корпус"].WorkPlanes[2], 20 + " мм", false);
+            oWorkPlane4.Visible = false;
+            PlanarSketch oSketch26 = oCompDef["13. Корпус"].Sketches.Add(oWorkPlane4, false);
+            Transaction oTrans6 = ThisApplication.TransactionManager.StartTransaction(ThisApplication.ActiveDocument, "Create Sample6");
+            point[0] = oSketch26.SketchPoints.Add(oTransGeom["13. Корпус"].CreatePoint2d(0, 0), false);
+            point[1] = oSketch26.SketchPoints.Add(oTransGeom["13. Корпус"].CreatePoint2d(RGasPr * 0.75, RGasPr * 1.299), false);
+            point[2] = oSketch26.SketchPoints.Add(oTransGeom["13. Корпус"].CreatePoint2d(RGasPr * 1.05, RGasPr * 1.819), false);
+            point[3] = oSketch26.SketchPoints.Add(oTransGeom["13. Корпус"].CreatePoint2d(RGasPr * 1.05, -RGasPr * 1.819), false);
+            point[4] = oSketch26.SketchPoints.Add(oTransGeom["13. Корпус"].CreatePoint2d(RGasPr * 0.75, -RGasPr * 1.299), false);
+            lines[0] = oSketch26.SketchLines.AddByTwoPoints(point[1], point[2]);
+            lines[1] = oSketch26.SketchLines.AddByTwoPoints(point[3], point[4]);
+            arcs[0] = oSketch26.SketchArcs.AddByCenterStartEndPoint(oTransGeom["13. Корпус"].CreatePoint2d(
+            point[0].Geometry.X, point[0].Geometry.Y), point[4], point[1]);
+            arcs[1] = oSketch26.SketchArcs.AddByCenterStartEndPoint(oTransGeom["13. Корпус"].CreatePoint2d(
+            point[0].Geometry.X, point[0].Geometry.Y), point[3], point[2]);
+            oTrans6.End();
+            Profile oProfile26 = (Profile)oSketch26.Profiles.AddForSolid();
+            ExtrudeFeature oExtrudeDef6 = oCompDef["13. Корпус"].Features.ExtrudeFeatures.AddByDistanceExtent(
+            /*Эскиз*/oProfile26,/*Длина в см*/ROtvTr * 0.87 + 2,/*Направление вдоль оси*/
+            PartFeatureExtentDirectionEnum.kPositiveExtentDirection,
+            /*Операция*/PartFeatureOperationEnum.kCutOperation,/*Эскиз*/oProfile26);
+
+            WorkPlane oWorkPlane5 = oCompDef["13. Корпус"].WorkPlanes.AddByPlaneAndOffset(
+            oCompDef["13. Корпус"].WorkPlanes[2], HKorp - 1.5 + " см", false);
+            oWorkPlane5.Visible = false;
+            PlanarSketch oSketch27 = oCompDef["13. Корпус"].Sketches.Add(oWorkPlane5, false);
+            Transaction oTrans7 = ThisApplication.TransactionManager.StartTransaction(ThisApplication.ActiveDocument, "Create Sample7");
+            point[0] = oSketch27.SketchPoints.Add(oTransGeom["13. Корпус"].CreatePoint2d(-RVtullka*1.87, 0), false);
+            Окружность[0] = oSketch27.SketchCircles.AddByCenterRadius(point[0], 0.1);
+            oTrans7.End();
+            Profile oProfile27 = (Profile)oSketch27.Profiles.AddForSolid();
+            ExtrudeFeature oExtrudeDef7 = oCompDef["13. Корпус"].Features.ExtrudeFeatures.AddByDistanceExtent(
+            /*Эскиз*/oProfile27,/*Длина в см*/2,/*Направление вдоль оси*/
+            PartFeatureExtentDirectionEnum.kNegativeExtentDirection,
+            /*Операция*/PartFeatureOperationEnum.kCutOperation,/*Эскиз*/oProfile27);
+
+            PlanarSketch oSketch28 = oCompDef["13. Корпус"].Sketches.Add(oCompDef["13. Корпус"].WorkPlanes[1]);
+            Transaction oTrans8 = ThisApplication.TransactionManager.StartTransaction(ThisApplication.ActiveDocument, "Create Sample8");
+            point[0] = oSketch28.SketchPoints.Add(oTransGeom["13. Корпус"].CreatePoint2d(4, ROsn * 1.05), false);
+            point[1] = oSketch28.SketchPoints.Add(oTransGeom["13. Корпус"].CreatePoint2d(4.515, ROsn * 1.05), false);
+            point[2] = oSketch28.SketchPoints.Add(oTransGeom["13. Корпус"].CreatePoint2d(4.425, 1.6), false);
+            point[3] = oSketch28.SketchPoints.Add(oTransGeom["13. Корпус"].CreatePoint2d(4.3, 1.475), false);
+            point[4] = oSketch28.SketchPoints.Add(oTransGeom["13. Корпус"].CreatePoint2d(4, 1.475), false);
+            lines[0] = oSketch28.SketchLines.AddByTwoPoints(point[0], point[1]);
+            lines[1] = oSketch28.SketchLines.AddByTwoPoints(point[1], point[2]);
+            lines[2] = oSketch28.SketchLines.AddByTwoPoints(point[2], point[3]);
+            lines[3] = oSketch28.SketchLines.AddByTwoPoints(point[3], point[4]);
+            lines[4] = oSketch28.SketchLines.AddByTwoPoints(point[4], point[0]);
+            oTrans8.End();
+            Profile oProfile28 = (Profile)oSketch28.Profiles.AddForSolid();
+            RevolveFeature revolvefeature21 = oCompDef["13. Корпус"].Features.
+                RevolveFeatures.AddFull(oProfile28, lines[4],
+                PartFeatureOperationEnum.kCutOperation);
+            //Зеркальное отображение
+            ObjectCollection objCollection = ThisApplication.TransientObjects.CreateObjectCollection();
+            MirrorFeature mirrorFeature;
+            objCollection.Add(revolvefeature21);
+            mirrorFeature = oCompDef["13. Корпус"].Features.MirrorFeatures.Add(objCollection, oCompDef["13. Корпус"].WorkPlanes[3], false,
+                PatternComputeTypeEnum.kAdjustToModelCompute);
+
+            PlanarSketch oSketch29 = oCompDef["13. Корпус"].Sketches.Add(oCompDef["13. Корпус"].WorkPlanes[3]);
+            Transaction oTrans9 = ThisApplication.TransactionManager.StartTransaction(ThisApplication.ActiveDocument, "Create Sample9");
+            point[0] = oSketch29.SketchPoints.Add(oTransGeom["13. Корпус"].CreatePoint2d(0, 4), false);
+            Окружность[0] = oSketch29.SketchCircles.AddByCenterRadius(point[0], 0.3);
+            oTrans9.End();
+            Profile oProfile29 = (Profile)oSketch29.Profiles.AddForSolid();
+            ExtrudeFeature oExtrudeDef8 = oCompDef["13. Корпус"].Features.ExtrudeFeatures.AddByDistanceExtent(
+            /*Эскиз*/oProfile29,/*Длина в см*/5,/*Направление вдоль оси*/
+            PartFeatureExtentDirectionEnum.kSymmetricExtentDirection,
+            /*Операция*/PartFeatureOperationEnum.kCutOperation,/*Эскиз*/oProfile29);
+
+            WorkPlane oWorkPlane6 = oCompDef["13. Корпус"].WorkPlanes.AddByPlaneAndOffset(
+            oCompDef["13. Корпус"].WorkPlanes[2], HKorp + " см", false);
+            oWorkPlane6.Visible = false;
+            PlanarSketch oSketch30 = oCompDef["13. Корпус"].Sketches.Add(oWorkPlane6, false);
+            Transaction oTrans10 = ThisApplication.TransactionManager.StartTransaction(ThisApplication.ActiveDocument, "Create Sample10");
+            point[0] = oSketch30.SketchPoints.Add(oTransGeom["13. Корпус"].CreatePoint2d(0, ROsn * 1.43 + DOtvBolt + 0.1), false);
+            Окружность[0] = oSketch30.SketchCircles.AddByCenterRadius(point[0], DOtvBolt);
+            oTrans10.End();
+            Profile oProfile30 = (Profile)oSketch30.Profiles.AddForSolid();
+            ExtrudeFeature oExtrudeDef9 = oCompDef["13. Корпус"].Features.ExtrudeFeatures.AddByDistanceExtent(
+            /*Эскиз*/oProfile30,/*Длина в см*/HFlanca,/*Направление вдоль оси*/
+            PartFeatureExtentDirectionEnum.kNegativeExtentDirection,
+            /*Операция*/PartFeatureOperationEnum.kCutOperation,/*Эскиз*/oProfile30);
+            //Построение кругового массива отверстий
+            WorkAxis Axis = oCompDef["13. Корпус"].WorkAxes[2];
+            ObjectCollection objCollection1 = ThisApplication.TransientObjects.CreateObjectCollection();
+            objCollection1.Add(oExtrudeDef9);
+            CircularPatternFeature CircularPatternFeature = oCompDef["13. Корпус"].Features.CircularPatternFeatures.Add(objCollection1, Axis, 
+                false, 6, 360 + "degree", true, PatternComputeTypeEnum.kIdenticalCompute);
+            //EdgeCollection EdgeCollection16 = ThisApplication.TransientObjects.CreateEdgeCollection();
+            ////FilletFeature oFillet4 = default(FilletFeature);
+            //EdgeCollection16.Add(oExtrudeDef5.Faces[5].Edges[5]);
+            ////EdgeCollection15.Add(oExtrudeDef5.Faces[8].Edges[1]);
+            //FilletDefinition oFilletDef5 = oCompDef["13. Корпус"].Features.FilletFeatures.CreateFilletDefinition();
+            //oFilletDef5.AddConstantRadiusEdgeSet(EdgeCollection16, 1.5 + "мм");
+            //oFillet3 = oCompDef["13. Корпус"].Features.FilletFeatures.Add(oFilletDef5, false);
+
+            //EdgeCollection EdgeCollection15 = ThisApplication.TransientObjects.CreateEdgeCollection();
+            //EdgeCollection15.Add(oExtrudeDef5.Faces[3].Edges[2]);
+            //EdgeCollection15.Add(oExtrudeDef5.Faces[2].Edges[2]);
+            //EdgeCollection15.Add(oExtrudeDef5.Faces[2].Edges[3]);
+            //EdgeCollection15.Add(oExtrudeDef5.Faces[2].Edges[4]);
+            //oCompDef["13. Корпус"].Features.ChamferFeatures.AddUsingDistance(EdgeCollection15, 1 + "мм", true);
 
             ////Построение детали 3. Винт
             //Имя_нового_документа("3. Винт");
@@ -665,9 +833,9 @@ namespace Pressure_regulator
             //EdgeCollection EdgeCollection5 = ThisApplication.TransientObjects.CreateEdgeCollection();
             //FilletFeature oFillet1 = default(FilletFeature);
             //EdgeCollection5.Add(revolvefeature8.Faces[1].Edges[1]);
-            //FilletDefinition oFilletDef = oCompDef["15. Шток"].Features.FilletFeatures.CreateFilletDefinition();
-            //oFilletDef.AddConstantRadiusEdgeSet(EdgeCollection5, 2.5 + "мм");
-            //oFillet1 = oCompDef["15. Шток"].Features.FilletFeatures.Add(oFilletDef, false);
+            //FilletDefinition oFilletDef2 = oCompDef["15. Шток"].Features.FilletFeatures.CreateFilletDefinition();
+            //oFilletDef2.AddConstantRadiusEdgeSet(EdgeCollection5, 2.5 + "мм");
+            //oFillet1 = oCompDef["15. Шток"].Features.FilletFeatures.Add(oFilletDef2, false);
 
             ////Построение детали 16. Прокладка
             //Имя_нового_документа("16. Прокладка");
@@ -745,9 +913,9 @@ namespace Pressure_regulator
             //FilletFeature oFillet2 = default(FilletFeature);
             //EdgeCollection EdgeCollection8 = ThisApplication.TransientObjects.CreateEdgeCollection();
             //EdgeCollection8.Add(revolvefeature11.Faces[1].Edges[1]);
-            //FilletDefinition oFilletDef = oCompDef["19. Клапан"].Features.FilletFeatures.CreateFilletDefinition();
-            //oFilletDef.AddConstantRadiusEdgeSet(EdgeCollection8, 0.5 + "мм");
-            //oFillet2 = oCompDef["19. Клапан"].Features.FilletFeatures.Add(oFilletDef, false);
+            //FilletDefinition oFilletDef3 = oCompDef["19. Клапан"].Features.FilletFeatures.CreateFilletDefinition();
+            //oFilletDef3.AddConstantRadiusEdgeSet(EdgeCollection8, 0.5 + "мм");
+            //oFillet2 = oCompDef["19. Клапан"].Features.FilletFeatures.Add(oFilletDef3, false);
 
             ////Построение детали 20. Пробка
             //Имя_нового_документа("20. Пробка");
@@ -1028,7 +1196,8 @@ namespace Pressure_regulator
             ShirFlanca = ShirFlanca * 10;
             HFlanca = HFlanca * 10;
             HKorp = HKorp * 10;
-
+            ROtvTr = ROtvTr * 10;
+            DOtvBolt = DOtvBolt * 2 * 10;
 
         }
     }
