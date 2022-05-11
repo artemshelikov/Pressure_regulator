@@ -191,18 +191,30 @@ namespace Pressure_regulator
             ComponentOccurrence Korpus_Model = oAssDoc.ComponentDefinition.Occurrences.Add(oFileName["13. Корпус"], oPositionMatrix);
             //Вставка в сборку пробки
             ComponentOccurrence Probka_Model = oAssDoc.ComponentDefinition.Occurrences.Add(oFileName["20. Пробка"], oPositionMatrix);
+            //Вставка в сборку кольца
+            ComponentOccurrence Kolco17_Model = oAssDoc.ComponentDefinition.Occurrences.Add(oFileName["17. Кольцо 55х48"], oPositionMatrix);
+            //Вставка в сборку прокладки
+            ComponentOccurrence Prokladka_Model = oAssDoc.ComponentDefinition.Occurrences.Add(oFileName["16. Прокладка"], oPositionMatrix);
             //Переменные для выбранных поверхностей
-            Face oFace1, oFace2, oFace3, oFace4;
+            Face oFace1, oFace2, oFace3, oFace4, oFace5, oFace6, oFace7, oFace8, oFace9, oFace10;
 
             oFace1 = Korpus_Model.SurfaceBodies[1].Faces[74];
             oFace2 = Probka_Model.SurfaceBodies[1].Faces[27];
             oFace3 = Korpus_Model.SurfaceBodies[1].Faces[73];
             oFace4 = Probka_Model.SurfaceBodies[1].Faces[7];
             //Переменные для сопряжений
-            MateConstraint Поверхность1, Поверхность2;
+            MateConstraint Поверхность1, Поверхность2, Поверхность3, Поверхность4, Поверхность5, Поверхность6; 
             Поверхность1 = oAssCompDef.Constraints.AddMateConstraint(oFace1, oFace2, 0, InferredTypeEnum.kNoInference, InferredTypeEnum.kNoInference);
             Поверхность2 = oAssCompDef.Constraints.AddMateConstraint(oFace3, oFace4, 0.4, InferredTypeEnum.kNoInference, InferredTypeEnum.kNoInference);
-
+            oFace5 = Korpus_Model.SurfaceBodies[1].Faces[73];
+            oFace6 = Kolco17_Model.SurfaceBodies[1].Faces[1];
+            //oFace7 = Korpus_Model.SurfaceBodies[1].Faces[72];
+            //oFace8 = Kolco17_Model.SurfaceBodies[1].Faces[1];
+            Поверхность3 = oAssCompDef.Constraints.AddMateConstraint(oFace5, oFace6, 0.205, InferredTypeEnum.kNoInference, InferredTypeEnum.kInferredPoint);
+            //Поверхность4 = oAssCompDef.Constraints.AddMateConstraint(oFace7, oFace8, 0, InferredTypeEnum.kNoInference, InferredTypeEnum.kInferredLine);
+            oFace9 = Korpus_Model.SurfaceBodies[1].Faces[73];
+            oFace10 = Prokladka_Model.SurfaceBodies[1].Faces[2];
+            Поверхность5 = oAssCompDef.Constraints.AddMateConstraint(oFace9, oFace10, 0, InferredTypeEnum.kNoInference, InferredTypeEnum.kNoInference);
             MessageBox.Show("Сборка завершена!");
         }
 
@@ -1024,41 +1036,42 @@ namespace Pressure_regulator
             //oFilletDef2.AddConstantRadiusEdgeSet(EdgeCollection5, 2.5 + "мм");
             //oFillet1 = oCompDef["15. Шток"].Features.FilletFeatures.Add(oFilletDef2, false);
 
-            ////Построение детали 16. Прокладка
-            //Имя_нового_документа("16. Прокладка");
-            //oPartDoc["16. Прокладка"].DisplayName = "16. Прокладка";
-            //PlanarSketch oSketch10 = oCompDef["16. Прокладка"].Sketches.Add(oCompDef["16. Прокладка"].WorkPlanes[3]);
-            //point[0] = oSketch10.SketchPoints.Add(oTransGeom["16. Прокладка"].CreatePoint2d(0.375, 0), false);
-            //point[1] = oSketch10.SketchPoints.Add(oTransGeom["16. Прокладка"].CreatePoint2d(1.3, 0), false);
-            //point[2] = oSketch10.SketchPoints.Add(oTransGeom["16. Прокладка"].CreatePoint2d(1.3, 0.2), false);
-            //point[3] = oSketch10.SketchPoints.Add(oTransGeom["16. Прокладка"].CreatePoint2d(0.375, 0.2), false);
-            //point[4] = oSketch10.SketchPoints.Add(oTransGeom["16. Прокладка"].CreatePoint2d(0, 0), false);
-            //point[5] = oSketch10.SketchPoints.Add(oTransGeom["16. Прокладка"].CreatePoint2d(0, 2), false);
-            //lines[0] = oSketch10.SketchLines.AddByTwoPoints(point[0], point[1]);
-            //lines[1] = oSketch10.SketchLines.AddByTwoPoints(point[1], point[2]);
-            //lines[2] = oSketch10.SketchLines.AddByTwoPoints(point[2], point[3]);
-            //lines[3] = oSketch10.SketchLines.AddByTwoPoints(point[3], point[0]);
-            //lines[4] = oSketch10.SketchLines.AddByTwoPoints(point[4], point[5]);
-            //oTrans["16. Прокладка"].End();
-            //Profile oProfile10 = (Profile)oSketch10.Profiles.AddForSolid();
-            //RevolveFeature revolvefeature9 = oCompDef["16. Прокладка"].Features.
-            //RevolveFeatures.AddFull(oProfile10, lines[4],
-            //PartFeatureOperationEnum.kJoinOperation);
-
-            ////Построение детали 17. Кольцо 55х48
-            //Имя_нового_документа("17. Кольцо 55х48");
-            //oPartDoc["17. Кольцо 55х48"].DisplayName = "17. Кольцо 55х48";
-            //PlanarSketch oSketch11 = oCompDef["17. Кольцо 55х48"].Sketches.Add(oCompDef["17. Кольцо 55х48"].WorkPlanes[3]);
-            //point[0] = oSketch11.SketchPoints.Add(oTransGeom["17. Кольцо 55х48"].CreatePoint2d(2.5, 0), false);
-            //point[1] = oSketch11.SketchPoints.Add(oTransGeom["17. Кольцо 55х48"].CreatePoint2d(0, 0), false);
-            //point[2] = oSketch11.SketchPoints.Add(oTransGeom["17. Кольцо 55х48"].CreatePoint2d(0, 2), false);
-            //lines[0] = oSketch11.SketchLines.AddByTwoPoints(point[1], point[2]);
-            //Окружность[0] = oSketch11.SketchCircles.AddByCenterRadius(point[0], 0.205);
-            //oTrans["17. Кольцо 55х48"].End();
-            //Profile oProfile11 = (Profile)oSketch11.Profiles.AddForSolid();
-            //RevolveFeature revolvefeature10 = oCompDef["17. Кольцо 55х48"].Features.
-            //RevolveFeatures.AddFull(oProfile11, lines[0],
-            //PartFeatureOperationEnum.kJoinOperation);
+            //Построение детали 16. Прокладка
+            Имя_нового_документа("16. Прокладка");
+            oPartDoc["16. Прокладка"].DisplayName = "16. Прокладка";
+            PlanarSketch oSketch10 = oCompDef["16. Прокладка"].Sketches.Add(oCompDef["16. Прокладка"].WorkPlanes[3]);
+            point[0] = oSketch10.SketchPoints.Add(oTransGeom["16. Прокладка"].CreatePoint2d(0.375, 0), false);
+            point[1] = oSketch10.SketchPoints.Add(oTransGeom["16. Прокладка"].CreatePoint2d(1.3, 0), false);
+            point[2] = oSketch10.SketchPoints.Add(oTransGeom["16. Прокладка"].CreatePoint2d(1.3, 0.2), false);
+            point[3] = oSketch10.SketchPoints.Add(oTransGeom["16. Прокладка"].CreatePoint2d(0.375, 0.2), false);
+            point[4] = oSketch10.SketchPoints.Add(oTransGeom["16. Прокладка"].CreatePoint2d(0, 0), false);
+            point[5] = oSketch10.SketchPoints.Add(oTransGeom["16. Прокладка"].CreatePoint2d(0, 2), false);
+            lines[0] = oSketch10.SketchLines.AddByTwoPoints(point[0], point[1]);
+            lines[1] = oSketch10.SketchLines.AddByTwoPoints(point[1], point[2]);
+            lines[2] = oSketch10.SketchLines.AddByTwoPoints(point[2], point[3]);
+            lines[3] = oSketch10.SketchLines.AddByTwoPoints(point[3], point[0]);
+            lines[4] = oSketch10.SketchLines.AddByTwoPoints(point[4], point[5]);
+            oTrans["16. Прокладка"].End();
+            Profile oProfile10 = (Profile)oSketch10.Profiles.AddForSolid();
+            RevolveFeature revolvefeature9 = oCompDef["16. Прокладка"].Features.
+            RevolveFeatures.AddFull(oProfile10, lines[4],
+            PartFeatureOperationEnum.kJoinOperation);
+            Save_Model("16. Прокладка", "Сохранить модель 16. Прокладка");
+            //Построение детали 17. Кольцо 55х48
+            Имя_нового_документа("17. Кольцо 55х48");
+            oPartDoc["17. Кольцо 55х48"].DisplayName = "17. Кольцо 55х48";
+            PlanarSketch oSketch11 = oCompDef["17. Кольцо 55х48"].Sketches.Add(oCompDef["17. Кольцо 55х48"].WorkPlanes[3]);
+            point[0] = oSketch11.SketchPoints.Add(oTransGeom["17. Кольцо 55х48"].CreatePoint2d(ROsn-0.4-0.205, 0), false);
+            point[1] = oSketch11.SketchPoints.Add(oTransGeom["17. Кольцо 55х48"].CreatePoint2d(0, 0), false);
+            point[2] = oSketch11.SketchPoints.Add(oTransGeom["17. Кольцо 55х48"].CreatePoint2d(0, 2), false);
+            lines[0] = oSketch11.SketchLines.AddByTwoPoints(point[1], point[2]);
+            Окружность[0] = oSketch11.SketchCircles.AddByCenterRadius(point[0], 0.205);
+            oTrans["17. Кольцо 55х48"].End();
+            Profile oProfile11 = (Profile)oSketch11.Profiles.AddForSolid();
+            RevolveFeature revolvefeature10 = oCompDef["17. Кольцо 55х48"].Features.
+            RevolveFeatures.AddFull(oProfile11, lines[0],
+            PartFeatureOperationEnum.kJoinOperation);
+            Save_Model("17. Кольцо 55х48", "Сохранить модель 17. Кольцо 55х48");
 
             ////Построение детали 19. Клапан
             //Имя_нового_документа("19. Клапан");
