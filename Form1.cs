@@ -647,17 +647,17 @@ namespace Pressure_regulator
 
         private void comboBox20_TextChanged(object sender, EventArgs e)
         {
-            DShtift = Convert.ToDouble(comboBox20);
+            DShtift = Convert.ToDouble(comboBox20.Text);
         }
 
         private void comboBox19_TextChanged(object sender, EventArgs e)
         {
-            HShtift = Convert.ToDouble(comboBox19);
+            HShtift = Convert.ToDouble(comboBox19.Text);
         }
 
         private void comboBox21_TextChanged(object sender, EventArgs e)
         {
-            HVtulka = Convert.ToDouble(comboBox21);
+            HVtulka = Convert.ToDouble(comboBox21.Text);
         }
 
         private void comboBox14_TextChanged(object sender, EventArgs e)
@@ -672,7 +672,7 @@ namespace Pressure_regulator
 
         private void comboBox18_TextChanged(object sender, EventArgs e)
         {
-            HRezbVint = Convert.ToDouble(comboBox18);
+            HRezbVint = Convert.ToDouble(comboBox18.Text);
         }
 
         private void comboBox17_TextChanged(object sender, EventArgs e)
