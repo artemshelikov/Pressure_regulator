@@ -63,6 +63,26 @@ namespace Pressure_regulator.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Винт_1 {
+            get {
+                object obj = ResourceManager.GetObject("Винт 1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Втулка_1 {
+            get {
+                object obj = ResourceManager.GetObject("Втулка 1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Корпус_1 {
             get {
                 object obj = ResourceManager.GetObject("Корпус 1", resourceCulture);
@@ -93,6 +113,16 @@ namespace Pressure_regulator.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Крышка_1 {
+            get {
+                object obj = ResourceManager.GetObject("Крышка 1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Сборка {
             get {
                 object obj = ResourceManager.GetObject("Сборка", resourceCulture);
@@ -116,6 +146,16 @@ namespace Pressure_regulator.Properties {
         internal static System.Drawing.Bitmap Сборка_2 {
             get {
                 object obj = ResourceManager.GetObject("Сборка 2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Штифт1 {
+            get {
+                object obj = ResourceManager.GetObject("Штифт1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

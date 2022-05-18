@@ -114,5 +114,17 @@
   <ItemGroup>
     <None Include="Resources\Корпус 2.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Крышка 1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Винт 1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Штифт1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Втулка 1.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
