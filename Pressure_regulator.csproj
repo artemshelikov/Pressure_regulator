@@ -99,5 +99,20 @@
   <ItemGroup>
     <None Include="Resources\Сборка.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Сборка 1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Сборка 2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Корпус 1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Корпус 3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Корпус 2.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
