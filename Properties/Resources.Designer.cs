@@ -83,6 +83,26 @@ namespace Pressure_regulator.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Кольцо1 {
+            get {
+                object obj = ResourceManager.GetObject("Кольцо1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Кольцо11 {
+            get {
+                object obj = ResourceManager.GetObject("Кольцо11", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Корпус_1 {
             get {
                 object obj = ResourceManager.GetObject("Корпус 1", resourceCulture);
@@ -123,6 +143,26 @@ namespace Pressure_regulator.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Пробка_1 {
+            get {
+                object obj = ResourceManager.GetObject("Пробка 1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Пробка_2 {
+            get {
+                object obj = ResourceManager.GetObject("Пробка 2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Сборка {
             get {
                 object obj = ResourceManager.GetObject("Сборка", resourceCulture);
@@ -153,9 +193,39 @@ namespace Pressure_regulator.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Угольник_1 {
+            get {
+                object obj = ResourceManager.GetObject("Угольник 1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Угольник_2 {
+            get {
+                object obj = ResourceManager.GetObject("Угольник 2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Штифт1 {
             get {
                 object obj = ResourceManager.GetObject("Штифт1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Шток_1 {
+            get {
+                object obj = ResourceManager.GetObject("Шток 1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
