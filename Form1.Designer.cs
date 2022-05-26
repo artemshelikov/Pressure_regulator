@@ -135,7 +135,8 @@
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.tabPage10 = new System.Windows.Forms.TabPage();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.pictureBox15 = new System.Windows.Forms.PictureBox();
             this.label40 = new System.Windows.Forms.Label();
             this.comboBox29 = new System.Windows.Forms.ComboBox();
             this.label41 = new System.Windows.Forms.Label();
@@ -143,8 +144,8 @@
             this.label42 = new System.Windows.Forms.Label();
             this.comboBox31 = new System.Windows.Forms.ComboBox();
             this.label43 = new System.Windows.Forms.Label();
-            this.panel10 = new System.Windows.Forms.Panel();
-            this.pictureBox15 = new System.Windows.Forms.PictureBox();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -241,24 +242,26 @@
             // button5
             // 
             this.button5.AutoSize = true;
-            this.button5.Location = new System.Drawing.Point(362, 193);
+            this.button5.Location = new System.Drawing.Point(97, 618);
             this.button5.Margin = new System.Windows.Forms.Padding(2);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(114, 27);
             this.button5.TabIndex = 41;
             this.button5.Text = "Открыть файл";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button4
             // 
             this.button4.AutoSize = true;
-            this.button4.Location = new System.Drawing.Point(262, 184);
+            this.button4.Location = new System.Drawing.Point(6, 598);
             this.button4.Margin = new System.Windows.Forms.Padding(2);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(87, 44);
             this.button4.TabIndex = 40;
             this.button4.Text = "Сохранить\r\nсборку";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button3
             // 
@@ -1423,6 +1426,24 @@
             this.tabPage10.Text = "Шток";
             this.tabPage10.UseVisualStyleBackColor = true;
             // 
+            // panel10
+            // 
+            this.panel10.Controls.Add(this.pictureBox15);
+            this.panel10.Location = new System.Drawing.Point(306, 6);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(830, 638);
+            this.panel10.TabIndex = 61;
+            // 
+            // pictureBox15
+            // 
+            this.pictureBox15.Image = global::Pressure_regulator.Properties.Resources.Шток_1;
+            this.pictureBox15.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox15.Name = "pictureBox15";
+            this.pictureBox15.Size = new System.Drawing.Size(581, 179);
+            this.pictureBox15.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox15.TabIndex = 0;
+            this.pictureBox15.TabStop = false;
+            // 
             // label40
             // 
             this.label40.AutoSize = true;
@@ -1499,23 +1520,9 @@
             this.label43.TabIndex = 54;
             this.label43.Text = "D штока";
             // 
-            // panel10
+            // openFileDialog1
             // 
-            this.panel10.Controls.Add(this.pictureBox15);
-            this.panel10.Location = new System.Drawing.Point(306, 6);
-            this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(830, 638);
-            this.panel10.TabIndex = 61;
-            // 
-            // pictureBox15
-            // 
-            this.pictureBox15.Image = global::Pressure_regulator.Properties.Resources.Шток_1;
-            this.pictureBox15.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox15.Name = "pictureBox15";
-            this.pictureBox15.Size = new System.Drawing.Size(775, 259);
-            this.pictureBox15.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox15.TabIndex = 0;
-            this.pictureBox15.TabStop = false;
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // Form1
             // 
@@ -1704,6 +1711,7 @@
         private System.Windows.Forms.Label label43;
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.PictureBox pictureBox15;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 

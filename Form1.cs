@@ -46,12 +46,12 @@ namespace Pressure_regulator
         private Dictionary<string, string> oFileName = new Dictionary<string, string>();
         private AssemblyDocument oAssemblyDocName;
         private AssemblyComponentDefinition oAssCompDef;
-
+        // Необходим для поиска индивидуального кода плоскости детали
         static UserInputEvents UIevents;
-        public Form1()
+       public Form1()
         {
             InitializeComponent();
-
+ 
             //Инициализация списков элементов
             comboBox1.Text = Convert.ToString(RGasPr);
             this.comboBox1.Items.AddRange(new object[] { "10,0", "9,0", "11,0", "12,0" });
@@ -190,8 +190,6 @@ namespace Pressure_regulator
             ThisApplication.ActiveDocument, "Create Sample");
             // Имя файла
             oFileName[Name] = null;
-
-
 
         }
 
@@ -677,6 +675,185 @@ namespace Pressure_regulator
             LShtokRuchka = Convert.ToDouble(comboBox29.Text);
         }
 
+        private void button4_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.Filter = "Inventor Assembly Document|*.iam";
+            saveFileDialog1.Title = "Сохранить сборку";
+            saveFileDialog1.FileName = oAssemblyDocName.DisplayName;
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                if (!string.IsNullOrWhiteSpace(saveFileDialog1.FileName))
+                {
+                    oAssemblyDocName.SaveAs(saveFileDialog1.FileName, false);
+                }
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.Filter = "Inventor Part Document|*.ipt";
+            openFileDialog1.Title = "Открыть файл регулятора давления";
+
+            openFileDialog1.FileName = "";
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                if (!string.IsNullOrWhiteSpace(openFileDialog1.FileName))
+                {
+
+                    if ("1. Опора.ipt" == openFileDialog1.SafeFileName)
+                    {
+                        oPartDoc["1. Опора"] = (PartDocument)ThisApplication.Documents.Open(
+                        openFileDialog1.FileName, true);
+                        oPartDoc["1. Опора"].DisplayName = "1. Опора";
+                        oFileName["1. Опора"] = openFileDialog1.FileName;
+                    }
+                    if ("3. Винт.ipt" == openFileDialog1.SafeFileName)
+                    {
+                        oPartDoc["3. Винт"] = (PartDocument)ThisApplication.Documents.Open(
+                        openFileDialog1.FileName, true);
+                        oPartDoc["3. Винт"].DisplayName = "3. Винт";
+                        oFileName["3. Винт"] = openFileDialog1.FileName;
+                    }
+                    if ("4. Штифт.ipt" == openFileDialog1.SafeFileName)
+                    {
+                        oPartDoc["4. Штифт"] = (PartDocument)ThisApplication.Documents.Open(
+                        openFileDialog1.FileName, true);
+                        oPartDoc["4. Штифт"].DisplayName = "4. Штифт";
+                        oFileName["4. Штифт"] = openFileDialog1.FileName;
+                    }
+                    if ("5. Упор.ipt" == openFileDialog1.SafeFileName)
+                    {
+                        oPartDoc["5. Упор"] = (PartDocument)ThisApplication.Documents.Open(
+                        openFileDialog1.FileName, true);
+                        oPartDoc["5. Упор"].DisplayName = "5. Упор";
+                        oFileName["5. Упор"] = openFileDialog1.FileName;
+                    }
+                    if ("6. Пружина.ipt" == openFileDialog1.SafeFileName)
+                    {
+                        oPartDoc["6. Пружина"] = (PartDocument)ThisApplication.Documents.Open(
+                        openFileDialog1.FileName, true);
+                        oPartDoc["6. Пружина"].DisplayName = "6. Пружина";
+                        oFileName["6. Пружина"] = openFileDialog1.FileName;
+                    }
+                    if ("7. Пружина.ipt" == openFileDialog1.SafeFileName)
+                    {
+                        oPartDoc["7. Пружина"] = (PartDocument)ThisApplication.Documents.Open(
+                        openFileDialog1.FileName, true);
+                        oPartDoc["7. Пружина"].DisplayName = "7. Пружина";
+                        oFileName["7. Пружина"] = openFileDialog1.FileName;
+                    }
+                    if ("8. Крышка.ipt" == openFileDialog1.SafeFileName)
+                    {
+                        oPartDoc["8. Крышка"] = (PartDocument)ThisApplication.Documents.Open(
+                        openFileDialog1.FileName, true);
+                        oPartDoc["8. Крышка"].DisplayName = "8. Крышка";
+                        oFileName["8. Крышка"] = openFileDialog1.FileName;
+                    }
+                    if ("10. Тарелка.ipt" == openFileDialog1.SafeFileName)
+                    {
+                        oPartDoc["10. Тарелка"] = (PartDocument)ThisApplication.Documents.Open(
+                        openFileDialog1.FileName, true);
+                        oPartDoc["10. Тарелка"].DisplayName = "10. Тарелка";
+                        oFileName["10. Тарелка"] = openFileDialog1.FileName;
+                    }
+                    if ("11. Диафрагма.ipt" == openFileDialog1.SafeFileName)
+                    {
+                        oPartDoc["11. Диафрагма"] = (PartDocument)ThisApplication.Documents.Open(
+                        openFileDialog1.FileName, true);
+                        oPartDoc["11. Диафрагма"].DisplayName = "11. Диафрагма";
+                        oFileName["11. Диафрагма"] = openFileDialog1.FileName;
+                    }
+                    if ("12. Кольцо 80х70.ipt" == openFileDialog1.SafeFileName)
+                    {
+                        oPartDoc["12. Кольцо 80х70"] = (PartDocument)ThisApplication.Documents.Open(
+                        openFileDialog1.FileName, true);
+                        oPartDoc["12. Кольцо 80х70"].DisplayName = "12. Кольцо 80х70";
+                        oFileName["12. Кольцо 80х70"] = openFileDialog1.FileName;
+                    }
+                    if ("13. Корпус.ipt" == openFileDialog1.SafeFileName)
+                    {
+                        oPartDoc["13. Корпус"] = (PartDocument)ThisApplication.Documents.Open(
+                        openFileDialog1.FileName, true);
+                        oPartDoc["13. Корпус"].DisplayName = "13. Корпус";
+                        oFileName["13. Корпус"] = openFileDialog1.FileName;
+                    }
+                    if ("14. Втулка.ipt" == openFileDialog1.SafeFileName)
+                    {
+                        oPartDoc["14. Втулка"] = (PartDocument)ThisApplication.Documents.Open(
+                        openFileDialog1.FileName, true);
+                        oPartDoc["14. Втулка"].DisplayName = "14. Втулка";
+                        oFileName["14. Втулка"] = openFileDialog1.FileName;
+                    }
+                    if ("15. Шток.ipt" == openFileDialog1.SafeFileName)
+                    {
+                        oPartDoc["15. Шток"] = (PartDocument)ThisApplication.Documents.Open(
+                        openFileDialog1.FileName, true);
+                        oPartDoc["15. Шток"].DisplayName = "15. Шток";
+                        oFileName["15. Шток"] = openFileDialog1.FileName;
+                    }
+                    if ("16. Прокладка.ipt" == openFileDialog1.SafeFileName)
+                    {
+                        oPartDoc["16. Прокладка"] = (PartDocument)ThisApplication.Documents.Open(
+                        openFileDialog1.FileName, true);
+                        oPartDoc["16. Прокладка"].DisplayName = "16. Прокладка";
+                        oFileName["16. Прокладка"] = openFileDialog1.FileName;
+                    }
+                    if ("17. Кольцо 55х48.ipt" == openFileDialog1.SafeFileName)
+                    {
+                        oPartDoc["17. Кольцо 55х48"] = (PartDocument)ThisApplication.Documents.Open(
+                        openFileDialog1.FileName, true);
+                        oPartDoc["17. Кольцо 55х48"].DisplayName = "17. Кольцо 55х48";
+                        oFileName["17. Кольцо 55х48"] = openFileDialog1.FileName;
+                    }
+                    if ("18. Пружина.ipt" == openFileDialog1.SafeFileName)
+                    {
+                        oPartDoc["18. Пружина"] = (PartDocument)ThisApplication.Documents.Open(
+                        openFileDialog1.FileName, true);
+                        oPartDoc["18. Пружина"].DisplayName = "18. Пружина";
+                        oFileName["18. Пружина"] = openFileDialog1.FileName;
+                    }
+                    if ("19. Клапан.ipt" == openFileDialog1.SafeFileName)
+                    {
+                        oPartDoc["19. Клапан"] = (PartDocument)ThisApplication.Documents.Open(
+                        openFileDialog1.FileName, true);
+                        oPartDoc["19. Клапан"].DisplayName = "19. Клапан";
+                        oFileName["19. Клапан"] = openFileDialog1.FileName;
+                    }
+                    if ("20. Пробка.ipt" == openFileDialog1.SafeFileName)
+                    {
+                        oPartDoc["20. Пробка"] = (PartDocument)ThisApplication.Documents.Open(
+                        openFileDialog1.FileName, true);
+                        oPartDoc["20. Пробка"].DisplayName = "20. Пробка";
+                        oFileName["20. Пробка"] = openFileDialog1.FileName;
+                    }
+                    if ("21. Шайба.ipt" == openFileDialog1.SafeFileName)
+                    {
+                        oPartDoc["21. Шайба"] = (PartDocument)ThisApplication.Documents.Open(
+                        openFileDialog1.FileName, true);
+                        oPartDoc["21. Шайба"].DisplayName = "21. Шайба";
+                        oFileName["21. Шайба"] = openFileDialog1.FileName;
+                    }
+                    if ("22. Угольник.ipt" == openFileDialog1.SafeFileName)
+                    {
+                        oPartDoc["22. Угольник"] = (PartDocument)ThisApplication.Documents.Open(
+                        openFileDialog1.FileName, true);
+                        oPartDoc["22. Угольник"].DisplayName = "22. Угольник";
+                        oFileName["22. Угольник"] = openFileDialog1.FileName;
+                    }
+                    if ("23. Пробка.ipt" == openFileDialog1.SafeFileName)
+                    {
+                        oPartDoc["23. Пробка"] = (PartDocument)ThisApplication.Documents.Open(
+                        openFileDialog1.FileName, true);
+                        oPartDoc["23. Пробка"].DisplayName = "23. Пробка";
+                        oFileName["23. Пробка"] = openFileDialog1.FileName;
+                    }
+
+                    MessageBox.Show("Файл открыт. Имя файла: " + openFileDialog1.SafeFileName, "Сообщение");
+                }
+            }
+        }
+
         private void comboBox24_TextChanged(object sender, EventArgs e)
         {
             LYgol = Convert.ToDouble(comboBox24.Text);
@@ -831,17 +1008,6 @@ namespace Pressure_regulator
                 string text = String.Join("", obj1.InternalName);
 
                 // полная перезапись файла 
-                using (System.IO.StreamWriter writer = new System.IO.StreamWriter(path, false))
-                {
-                    writer.WriteLine(text);
-                }
-            }
-            if (obj is Inventor.Edge)
-            {
-                Inventor.Edge obj2 = obj as Inventor.Edge;
-                string path = @"C:\Temp\interalName1.txt";
-                string text = String.Join("", obj2.AssociativeID);
-
                 using (System.IO.StreamWriter writer = new System.IO.StreamWriter(path, false))
                 {
                     writer.WriteLine(text);
