@@ -115,63 +115,13 @@ namespace Pressure_regulator
             this.comboBox30.Items.AddRange(new object[] { "65,0", "60,0", "61,0", "62,0", "63,0", "64,0", "66,0", "67,0" });
             comboBox31.Text = Convert.ToString(DShtok);
             this.comboBox31.Items.AddRange(new object[] { "5,0", "4,0", "6,0", "7,0", "8,0"});
-            textBox1.Text = Версия_Inventor;
-            try
-            {
-                //Проверка наличия активного состояния Инвентора.
-                ThisApplication = (Inventor.Application)System.Runtime.InteropServices.
-                Marshal.GetActiveObject("Inventor.Application");
-                if (ThisApplication != null) label2.Text = "Инвентор открыт!";
-                UIevents = ThisApplication.CommandManager.UserInputEvents;
-                UIevents.OnSelect += click;
-            }
-            catch
-            {
-                // Если Инвентор не открыт, то возвращаемся в основную программу.
-                label2.Text = "Откройте Инвентор!";
-            }
+            
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Запуск Инвентора может занять несколько минут!");
-            System.Diagnostics.Process.Start("C:/Program Files/Autodesk/Inventor " + Версия_Inventor +
-            "/Bin/Inventor.exe");
-            label2.Text = "Инвентор открыт!";
-        }
+        
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            int число = 0;
-            Версия_Inventor = textBox1.Text;
-
-            число = Convert.ToInt16(textBox1.Text);
-            if (число >= 2009)
-                if (число >= 2013 && число <= 2022)
-                {
-                    MessageBox.Show("Принята версия Инвентора " + textBox1.Text);
-                }
-                else
-                {
-                    if (число < 2015) MessageBox.Show("Используется устаревшая версия Инвентора! " +
-                    textBox1.Text);
-                    if (число > 2022)
-                    {
-                        MessageBox.Show("Данная версия Инвентора " + textBox1.Text +
-                        " не существует!\nПо умолчанию будет принята версия Инвентора 2022 !");
-                        Версия_Inventor = "2022";
-                        textBox1.Text = Версия_Inventor;
-                    }
-                }
-            else if (число >= 2000)
-            {
-                MessageBox.Show("Используется устаревшая версия Инвентора " + textBox1.Text +
-                " !\nПо умолчанию будет принята версия Инвентора 2022 !");
-                Версия_Inventor = "2022";
-                textBox1.Text = Версия_Inventor;
-            }
-        }
+        
         /// <summary>
         /// Функция создания имен новых элементов (документ, определение, инструменты,транзакции, имена файлов), необходимых для работы с деталями
         /// </summary>
@@ -686,7 +636,8 @@ namespace Pressure_regulator
                 {
                     oAssemblyDocName.SaveAs(saveFileDialog1.FileName, false);
                 }
-            }
+            }
+
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -851,7 +802,8 @@ namespace Pressure_regulator
 
                     MessageBox.Show("Файл открыт. Имя файла: " + openFileDialog1.SafeFileName, "Сообщение");
                 }
-            }
+            }
+
         }
 
         private void comboBox24_TextChanged(object sender, EventArgs e)
@@ -1016,19 +968,7 @@ namespace Pressure_regulator
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            try
-            {
-                //Проверка наличия активного состояния Инвентора.
-                ThisApplication = (Inventor.Application)System.Runtime.InteropServices.
-                Marshal.GetActiveObject("Inventor.Application");
-                if (ThisApplication != null) label2.Text = "Инвентор открыт!";
-            }
-            catch
-            {
-                // Если Инвентор не открыт, то возвращаемся в основную программу.
-                MessageBox.Show("Запустите Инвентор!");
-                return;
-            }
+            
 
             //Перевод размеров в см
             RGasPr = RGasPr / 10;

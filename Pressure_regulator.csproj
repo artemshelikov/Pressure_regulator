@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ButtonRegDav.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,6 +141,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Шток 1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Сборка 1 тест.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Сборка 2 тест.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

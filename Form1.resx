@@ -117,6 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="label1.Text" xml:space="preserve">
+    <value>
+1. Опора.                      18. Пружина 2х18.
+3. Винт.                         19. Клапан.
+4. Штифт.                       20. Пробка.
+5. Упор.                         21. Шайба.
+6. Пружина 7х40.          22. Угольник.
+7. Пружина 3х20.          23. Пробка.
+8. Крышка.
+10. Тарелка.
+11. Диафрагма.
+12. Кольцо 80х70.
+13. Корпус.
+14. Втулка.
+15. Шток.
+16. Прокладка.
+17. Кольцо 55х48.
+
+Деталь 2 - гайка М16х1,5, ГОСТ 2526-70; 
+Деталь 9 - винт М8, ГОСТ 11738-72.
+</value>
+  </data>
   <metadata name="saveFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
